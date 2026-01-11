@@ -80,33 +80,66 @@ print("95% confidence interval:", (result.ci_low, result.ci_high))
 print("p-value:", result.p_value)
 ```
 
+### Conversion rate analysis (binary metrics)
+
+Use this when each user either converts or does not convert (for example: “made a booking”).
+
+The main function is:
+
+- `conversion_diff(group_a, group_b)`
+
+It returns:
+- conversion rate in each group
+- effect = rate(B) minus rate(A)
+- a confidence interval for the effect
+- a p-value for the hypothesis “the true effect is 0”
+
+#### Example
+
+```python
+from abtk import conversion_diff
+
+# Example: booking conversion (1 = booked, 0 = did not book)
+group_a = [0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+group_b = [0, 1, 1, 0, 0, 0, 1, 0, 0, 1]
+
+result = conversion_diff(group_a, group_b)
+
+print("Rate(A):", result.rate_a)
+print("Rate(B):", result.rate_b)
+print("Effect (B - A):", result.effect)
+print("95% confidence interval:", (result.ci_low, result.ci_high))
+print("p-value:", result.p_value)
+```
+
 How to interpret the output:
 
-	•	Effect (mean(B) − mean(A)):
-	•	Positive means B is higher than A.
-	•	Negative means B is lower than A.
+	**Effect (mean(B) − mean(A)):**
+	-	Positive means B is higher than A.
+	-	Negative means B is lower than A.
 
-	•	Confidence interval:
-	•	A range of values that are consistent with the data.
-	•	If the interval includes 0, then “no change” is still plausible.
+	**Confidence interval:**
+	-	A range of values that are consistent with the data.
+	-	If the interval includes 0, then “no change” is still plausible.
 
-	•	p-value:
-	•	Answers: “If there were actually no difference, how unusual would this result be?”
-	•	A small p-value suggests the observed difference is hard to explain by chance alone.
+	**p-value:**
+	-	Answers: “If there were actually no difference, how unusual would this result be?”
+	-	A small p-value suggests the observed difference is hard to explain by chance alone.
 
 ⸻
 
 What this toolkit aims to include (planned scope)
 
 This section is the intended scope of the toolkit.
-	•	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
-	•	Binary metrics (e.g., conversion rate) analysis
-	•	Ratio metrics (common in product analytics)
-	•	Experiment health checks (for example, Sample Ratio Mismatch detection)
-	•	Sample size and power calculators
-	•	CUPED variance reduction
-	•	Multiple testing corrections
-	•	Beginner-friendly reporting outputs
+
+	-	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
+	-	Binary metrics (e.g., conversion rate) analysis
+	-	Ratio metrics (common in product analytics)
+	-	Experiment health checks (for example, Sample Ratio Mismatch detection)
+	-	Sample size and power calculators
+	-	CUPED variance reduction
+	-	Multiple testing corrections
+	-	Beginner-friendly reporting outputs
 
 ⸻
 
@@ -148,6 +181,7 @@ black .
 ⸻
 
 Repository structure
-	•	src/abtk/ — library code
-	•	tests/ — unit tests
-	•	.github/workflows/ — CI checks (lint, formatting, tests)
+
+	-	src/abtk/ — library code
+	-	tests/ — unit tests
+	-	.github/workflows/ — CI checks (lint, formatting, tests)

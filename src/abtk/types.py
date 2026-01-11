@@ -61,3 +61,53 @@ class MeanTestResult:
 
     # alpha is the "significance level" used to set the CI width (default 0.05 -> 95% CI)
     alpha: float = 0.05
+
+
+@dataclass(frozen=True)
+class ConversionTestResult:
+    """
+    Result of comparing conversion rates between two groups.
+
+    A conversion is a yes/no outcome:
+      - 1 means "converted" (for example: made a booking)
+      - 0 means "did not convert"
+
+    We follow the same convention as the mean test:
+        effect = rate(B) - rate(A)
+
+    Example
+    -------
+    Suppose:
+      Group A: 120 conversions out of 2000 users  -> rate(A) = 0.06
+      Group B: 150 conversions out of 2000 users  -> rate(B) = 0.075
+
+    Then:
+      effect = 0.075 - 0.06 = 0.015
+
+    That means B increased conversion by 1.5 percentage points.
+
+    Notes on the confidence interval
+    --------------------------------
+    For conversion rates, some common formulas behave badly when rates are near 0 or 1,
+    or when there are very few conversions. This toolkit uses a method based on
+    Wilson intervals (a well-known approach for proportions) and combines them to
+    get an interval for the difference in rates.
+    """
+
+    n_a: int
+    n_b: int
+
+    conversions_a: int
+    conversions_b: int
+
+    rate_a: float
+    rate_b: float
+
+    effect: float  # rate_b - rate_a
+
+    ci_low: float
+    ci_high: float
+
+    p_value: float
+
+    alpha: float = 0.05

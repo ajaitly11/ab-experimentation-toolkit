@@ -4,17 +4,13 @@ A beginner-friendly Python toolkit for analysing A/B tests.
 
 The goal of this repository is to provide a small set of tools for analysing experiments in a clean, reliable way.
 
-This repo is built with a “correctness first” mindset:
-- readable code
-- automated tests
-- continuous integration (CI) checks on every push
-
 ---
 
 ## Current status
 
 **Implemented**
 - Mean (average) metric analysis: compare group means with an effect estimate, confidence interval, and p-value.
+- Conversion metric analysis
 
 **In progress**
 - This repo will continue to grow in small, reviewable steps, with tests added alongside features.
@@ -80,7 +76,7 @@ print("95% confidence interval:", (result.ci_low, result.ci_high))
 print("p-value:", result.p_value)
 ```
 
-### Conversion rate analysis (binary metrics)
+### 2) Conversion rate analysis (binary metrics)
 
 Use this when each user either converts or does not convert (for example: “made a booking”).
 
@@ -114,15 +110,15 @@ print("p-value:", result.p_value)
 
 How to interpret the output:
 
-	**Effect (mean(B) − mean(A)):**
+#### Effect (mean(B) − mean(A)):
 	-	Positive means B is higher than A.
 	-	Negative means B is lower than A.
 
-	**Confidence interval:**
+#### Confidence interval:
 	-	A range of values that are consistent with the data.
 	-	If the interval includes 0, then “no change” is still plausible.
 
-	**p-value:**
+#### p-value:
 	-	Answers: “If there were actually no difference, how unusual would this result be?”
 	-	A small p-value suggests the observed difference is hard to explain by chance alone.
 
@@ -133,7 +129,7 @@ What this toolkit aims to include (planned scope)
 This section is the intended scope of the toolkit.
 
 	-	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
-	-	Binary metrics (e.g., conversion rate) analysis
+	-	Binary metrics (e.g., conversion rate) analysis ✅
 	-	Ratio metrics (common in product analytics)
 	-	Experiment health checks (for example, Sample Ratio Mismatch detection)
 	-	Sample size and power calculators

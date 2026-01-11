@@ -98,7 +98,7 @@ How to interpret the output:
 
 What this toolkit aims to include (planned scope)
 
-This section is the intended scope of the toolkit. 
+This section is the intended scope of the toolkit.
 	•	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
 	•	Binary metrics (e.g., conversion rate) analysis
 	•	Ratio metrics (common in product analytics)

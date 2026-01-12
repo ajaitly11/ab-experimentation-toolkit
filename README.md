@@ -107,8 +107,46 @@ print("Effect (B - A):", result.effect)
 print("95% confidence interval:", (result.ci_low, result.ci_high))
 print("p-value:", result.p_value)
 ```
+### 3) Ratio metric analysis (revenue per visitor, revenue per booking, and similar metrics)
 
-How to interpret the output:
+Use this when your metric is a ratio of totals, such as:
+
+- revenue per visitor
+- bookings per visitor
+- revenue per booking
+
+The main function is:
+
+- `ratio_diff(numerators_a, denominators_a, numerators_b, denominators_b)`
+
+It supports two uncertainty methods:
+- `method="delta"` (fast approximation)
+- `method="bootstrap"` (resampling-based)
+
+#### Example (revenue per visitor)
+
+```python
+from abtk import ratio_diff
+
+# Each user contributes:
+# numerator   = revenue
+# denominator = 1 visitor
+a_num = [0, 0, 50, 0, 0, 10, 0]
+a_den = [1, 1, 1, 1, 1, 1, 1]
+
+b_num = [0, 0, 60, 0, 0, 12, 0]
+b_den = [1, 1, 1, 1, 1, 1, 1]
+
+result = ratio_diff(a_num, a_den, b_num, b_den, method="delta")
+
+print("Ratio(A):", result.ratio_a)
+print("Ratio(B):", result.ratio_b)
+print("Effect (B - A):", result.effect)
+print("95% confidence interval:", (result.ci_low, result.ci_high))
+print("p-value:", result.p_value)
+```
+
+### How to interpret the output:
 
 #### Effect (mean(B) − mean(A)):
 	-	Positive means B is higher than A.
@@ -130,7 +168,7 @@ This section is the intended scope of the toolkit.
 
 	-	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
 	-	Binary metrics (e.g., conversion rate) analysis ✅
-	-	Ratio metrics (common in product analytics)
+	-	Ratio metrics (common in product analytics) ✅
 	-	Experiment health checks (for example, Sample Ratio Mismatch detection)
 	-	Sample size and power calculators
 	-	CUPED variance reduction

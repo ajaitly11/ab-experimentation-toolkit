@@ -111,3 +111,47 @@ class ConversionTestResult:
     p_value: float
 
     alpha: float = 0.05
+
+
+@dataclass(frozen=True)
+class RatioTestResult:
+    """
+    Result of comparing ratio metrics between two groups.
+
+    A ratio metric is something like:
+
+        ratio = (total numerator) / (total denominator)
+
+    Real examples:
+    - revenue per visitor:
+        numerator   = revenue
+        denominator = visitors (often 1 per visitor)
+    - bookings per visitor:
+        numerator   = bookings (0 or 1 per visitor, sometimes more)
+        denominator = visitors (often 1 per visitor)
+    - revenue per booking:
+        numerator   = revenue
+        denominator = bookings (0 for non-bookers, 1 for bookers)
+
+    We compare groups using:
+        effect = ratio(B) - ratio(A)
+
+    The result includes a confidence interval and a p-value for the hypothesis that
+    the true effect is 0.
+    """
+
+    n_a: int
+    n_b: int
+
+    ratio_a: float
+    ratio_b: float
+
+    effect: float
+
+    ci_low: float
+    ci_high: float
+
+    p_value: float
+
+    method: str  # "delta" or "bootstrap"
+    alpha: float = 0.05

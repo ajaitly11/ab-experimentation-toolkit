@@ -11,6 +11,8 @@ The goal of this repository is to provide a small set of tools for analysing exp
 **Implemented**
 - Mean (average) metric analysis: compare group means with an effect estimate, confidence interval, and p-value.
 - Conversion metric analysis
+- Ratio Metrics
+- Sample Ratio Mismatch (SRM) Health Checks
 
 **In progress**
 - This repo will continue to grow in small, reviewable steps, with tests added alongside features.
@@ -145,6 +147,29 @@ print("Effect (B - A):", result.effect)
 print("95% confidence interval:", (result.ci_low, result.ci_high))
 print("p-value:", result.p_value)
 ```
+### 4) Experiment health check: Sample Ratio Mismatch (SRM)
+
+Before interpreting metric results, it is common to check whether the traffic split
+matches the intended randomisation.
+
+Use:
+
+- `srm_check(count_a, count_b, expected_split=(...))`
+
+Example:
+
+```python
+from abtk import srm_check
+
+result = srm_check(60000, 40000, expected_split=(0.5, 0.5))
+
+print("Expected A:", result.expected_a)
+print("Expected B:", result.expected_b)
+print("Chi-square:", result.chi2)
+print("p-value:", result.p_value)
+# If the p-value is extremely small, that is a signal to pause and investigate the
+# experiment setup before trusting metric outcomes.
+```
 
 ### How to interpret the output:
 
@@ -169,7 +194,7 @@ This section is the intended scope of the toolkit.
 	-	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
 	-	Binary metrics (e.g., conversion rate) analysis ✅
 	-	Ratio metrics (common in product analytics) ✅
-	-	Experiment health checks (for example, Sample Ratio Mismatch detection)
+	-	Experiment health checks (Sample Ratio Mismatch (SRM) detection) ✅
 	-	Sample size and power calculators
 	-	CUPED variance reduction
 	-	Multiple testing corrections

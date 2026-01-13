@@ -155,3 +155,32 @@ class RatioTestResult:
 
     method: str  # "delta" or "bootstrap"
     alpha: float = 0.05
+
+
+@dataclass(frozen=True)
+class SRMResult:
+    """
+    Sample Ratio Mismatch (SRM) check result.
+
+    SRM means the observed traffic split across variants does not match the intended split.
+
+    Example:
+      Intended split: 50% A, 50% B
+      Observed users: A=60,000, B=40,000
+
+    That is unusual enough that it may indicate:
+    - a bug in randomisation
+    - a logging issue
+    - targeting rules applied incorrectly
+    - bots or filtering affecting one group more than the other
+
+    In experimentation platforms, SRM is usually a "stop and investigate" signal.
+    """
+
+    count_a: int
+    count_b: int
+    expected_a: float
+    expected_b: float
+    chi2: float
+    p_value: float
+    alpha: float = 0.001  # platforms often use a stricter threshold than 0.05

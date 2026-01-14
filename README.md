@@ -171,19 +171,16 @@ print("p-value:", result.p_value)
 # experiment setup before trusting metric outcomes.
 ```
 
-### How to interpret the output:
+### 4) Power and sample size planning
 
-#### Effect (mean(B) − mean(A)):
-	-	Positive means B is higher than A.
-	-	Negative means B is lower than A.
+The toolkit includes utilities to plan experiments and estimate power for:
 
-#### Confidence interval:
-	-	A range of values that are consistent with the data.
-	-	If the interval includes 0, then “no change” is still plausible.
+- conversion rates (two-proportion planning)
+- mean metrics (two-mean planning)
 
-#### p-value:
-	-	Answers: “If there were actually no difference, how unusual would this result be?”
-	-	A small p-value suggests the observed difference is hard to explain by chance alone.
+These functions support typical A/B planning questions like:
+- “How many users per group do we need to detect a +1 percentage point lift?”
+- “Given 20,000 users per group, what power do we have to detect this effect?”
 
 ⸻
 
@@ -195,7 +192,7 @@ This section is the intended scope of the toolkit.
 	-	Binary metrics (e.g., conversion rate) analysis ✅
 	-	Ratio metrics (common in product analytics) ✅
 	-	Experiment health checks (Sample Ratio Mismatch (SRM) detection) ✅
-	-	Sample size and power calculators
+	-	Sample size and power calculators ✅
 	-	CUPED variance reduction
 	-	Multiple testing corrections
 	-	Beginner-friendly reporting outputs

@@ -184,3 +184,37 @@ class SRMResult:
     chi2: float
     p_value: float
     alpha: float = 0.001  # platforms often use a stricter threshold than 0.05
+
+
+@dataclass(frozen=True)
+class CUPEDResult:
+    """
+    Result of a CUPED-adjusted mean comparison.
+
+    CUPED uses a pre-experiment covariate (a value measured before treatment assignment)
+    to reduce variance in the experiment metric.
+
+    Example:
+    - metric: revenue during the experiment
+    - covariate: revenue in the week before the experiment
+
+    This result reports:
+    - the CUPED coefficient (theta)
+    - the same mean test outputs as mean_diff, but on adjusted metrics
+    """
+
+    theta: float
+    baseline_mean_a: float
+    baseline_mean_b: float
+    adjusted_mean_a: float
+    adjusted_mean_b: float
+
+    effect: float
+    ci_low: float
+    ci_high: float
+    p_value: float
+
+    n_a: int
+    n_b: int
+
+    alpha: float = 0.05

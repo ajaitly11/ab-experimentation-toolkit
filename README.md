@@ -182,6 +182,20 @@ These functions support typical A/B planning questions like:
 - “How many users per group do we need to detect a +1 percentage point lift?”
 - “Given 20,000 users per group, what power do we have to detect this effect?”
 
+### 5) CUPED variance reduction for mean metrics
+
+CUPED uses a pre-experiment covariate (measured before treatment assignment) to reduce
+noise in a mean metric.
+
+Typical example:
+- metric: revenue per visitor during the experiment
+- covariate: revenue per visitor in the week before the experiment
+
+Use:
+- `cuped_mean_diff(metric_a, metric_b, covariate_a, covariate_b)`
+
+It returns the CUPED coefficient (theta) and the usual mean test outputs on the adjusted metric.
+
 ⸻
 
 What this toolkit aims to include (planned scope)
@@ -193,7 +207,7 @@ This section is the intended scope of the toolkit.
 	-	Ratio metrics (common in product analytics) ✅
 	-	Experiment health checks (Sample Ratio Mismatch (SRM) detection) ✅
 	-	Sample size and power calculators ✅
-	-	CUPED variance reduction
+	-	CUPED variance reduction ✅
 	-	Multiple testing corrections
 	-	Beginner-friendly reporting outputs
 

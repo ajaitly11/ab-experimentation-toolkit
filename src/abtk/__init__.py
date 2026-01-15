@@ -8,6 +8,7 @@ from .mean import mean_diff
 from .conversion import conversion_diff
 from .ratio import ratio_diff
 from .health import srm_check
+from .cuped import cuped_adjust, cuped_mean_diff, estimate_theta
 from .power import (
     power_two_means,
     power_two_proportions,
@@ -25,5 +26,8 @@ __all__ = [
     "power_two_proportions",
     "sample_size_two_means",
     "power_two_means",
+    "estimate_theta",
+    "cuped_adjust",
+    "cuped_mean_diff",
 ]
 __version__ = "0.0.0"

@@ -3,20 +3,6 @@
 A beginner-friendly Python toolkit for analysing A/B tests.
 
 The goal of this repository is to provide a small set of tools for analysing experiments in a clean, reliable way.
-
----
-
-## Current status
-
-**Implemented**
-- Mean (average) metric analysis: compare group means with an effect estimate, confidence interval, and p-value.
-- Conversion metric analysis
-- Ratio Metrics
-- Sample Ratio Mismatch (SRM) Health Checks
-
-**In progress**
-- This repo will continue to grow in small, reviewable steps, with tests added alongside features.
-
 ---
 
 ## What is an A/B test?
@@ -196,11 +182,19 @@ Use:
 
 It returns the CUPED coefficient (theta) and the usual mean test outputs on the adjusted metric.
 
+### 6) Multiple testing corrections
+
+When you evaluate many metrics (or many slices) at once, the chance of false positives increases.
+The toolkit includes standard ways to adjust p-values:
+
+- `bonferroni(p_values)`
+- `holm_bonferroni(p_values)`
+- `benjamini_hochberg(p_values)` (false discovery rate control)
+
+Each returns adjusted p-values that can be compared to your usual alpha threshold.
 ⸻
 
 What this toolkit aims to include (planned scope)
-
-This section is the intended scope of the toolkit.
 
 	-	Mean metrics (e.g., average revenue) analysis with confidence intervals ✅
 	-	Binary metrics (e.g., conversion rate) analysis ✅
@@ -208,7 +202,7 @@ This section is the intended scope of the toolkit.
 	-	Experiment health checks (Sample Ratio Mismatch (SRM) detection) ✅
 	-	Sample size and power calculators ✅
 	-	CUPED variance reduction ✅
-	-	Multiple testing corrections
+	-	Multiple testing corrections ✅
 	-	Beginner-friendly reporting outputs
 
 ⸻
